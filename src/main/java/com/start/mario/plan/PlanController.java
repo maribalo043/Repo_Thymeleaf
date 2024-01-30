@@ -1,8 +1,7 @@
 package com.start.mario.plan;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.Optional; 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -57,7 +56,9 @@ public class PlanController {
 				if (curso.isPresent()) {
 					List<Plan> planes = curso.get().getPlanes();
 					planes.remove(plan.get());
+					plan.get().setIdCurso(null);
 					curso.get().setPlanes(planes);
+
 					cursoDao.save(curso.get());
 				}
 			}
@@ -78,22 +79,19 @@ public class PlanController {
 	}
 	
 	@PostMapping("/plan/save")
-	public ModelAndView savePlan(@ModelAttribute Plan plan){
-		
-		Tutor cambiado = plan.getTutor();
-		
-		if(cambiado != null) {
-			cambiado.setPlan(plan);
-			tutorDao.save(cambiado);
-		}
-		planDao.save(plan);
-		
+	public ModelAndView savePlan(@ModelAttribute Plan plan) {
+
 		ModelAndView model = new ModelAndView();
+		Tutor tutor = plan.getTutor();
+		if (tutor != null) {
+			tutor.setIdPlan(plan);
+			tutorDao.save(tutor);
+		}
 		model.setViewName("redirect:/plan");
-		
 		return model;
-		
 	}
+	
+
 	@GetMapping("/plan/edit/{id}")
 	public ModelAndView editPlan(@PathVariable long id) {
 		
@@ -115,7 +113,7 @@ public class PlanController {
 			Plan planazo = plan.get();
 			Tutor tutor = planazo.getTutor();
 			planazo.setTutor(null);
-			tutor.setPlan(null);
+			tutor.setIdPlan(null);
 			planDao.save(planazo);
 		}
 		ModelAndView model = new ModelAndView();

@@ -1,28 +1,38 @@
-INSERT INTO curso(nombre) VALUES('Primero DAW');
-INSERT INTO curso(nombre) VALUES('Segundo DAW');
-INSERT INTO curso(nombre) VALUES('Primero DAM');
-INSERT INTO curso(nombre) VALUES('Segundo DAM');
-
-INSERT INTO plan(nombre,FK_CURSO) VALUES('Plan Uno',1);
-INSERT INTO plan(nombre,FK_CURSO) VALUES('Plan Dos',2);
-INSERT INTO plan(nombre,FK_CURSO) VALUES('Plan Tres',4);
-INSERT INTO plan(nombre,FK_CURSO) VALUES('Plan Cuatro',1);
-
-INSERT INTO tutor(nombre,plan_id) VALUES('Sergio',1);
-INSERT INTO tutor(nombre,plan_id) VALUES('Pablo',2);
-INSERT INTO tutor(nombre,plan_id) VALUES('Mario',3);
-INSERT INTO tutor(nombre,plan_id) VALUES('Jandro',4);
-INSERT INTO tutor(nombre) VALUES('Vacio');
+insert into curso(nombre) values('1A');
+insert into curso(nombre) values('2A');
+insert into curso(nombre) values('3A');
+insert into curso(nombre) values('2B');
 
 
-INSERT INTO actividad(nombre,descripcion,obligatoria) VALUES('Capgemini','viene Capgemini y punto',false);
-INSERT INTO actividad(nombre,descripcion,obligatoria) VALUES('Segunda','Segunda',false);
-INSERT INTO actividad(nombre,descripcion,obligatoria) VALUES('Tercera','Tercera',true);
-INSERT INTO actividad(nombre,descripcion,obligatoria) VALUES('Cuarta','Cuarta',true);
+insert into plan(nombre, FK_CURSO) values('Plan 1', 1);
+insert into plan(nombre, FK_CURSO) values('Plan 2', 2);
+insert into plan(nombre) values('Plan 3');
+insert into plan(nombre) values('Plan 4');
+insert into plan(nombre) values('Plan 5');
+insert into plan(nombre) values('Plan 6');
+insert into plan(nombre) values('Plan 7');
 
-INSERT INTO enmarca(plan_id,actividad_id,fecha) VALUES(1,2,'2024-12-2');
-INSERT INTO enmarca(plan_id,actividad_id,fecha) VALUES(3,2,'2024-12-2');
-INSERT INTO enmarca(plan_id,actividad_id,fecha) VALUES(4,2,'2024-12-2');
-INSERT INTO enmarca(plan_id,actividad_id,fecha) VALUES(2,2,'2024-12-2');
+
+
+insert into tutor(id, nombre, plan_id) values('243524', 'Mario', 1);
+insert into tutor(id, nombre, plan_id) values('989345', 'Alejandro', 2);
+insert into tutor(id, nombre, plan_id) values('563455', 'Pablo', 3);
+insert into tutor(id, nombre, plan_id) values('8563747', 'Pablo teacher', 4);
+insert into tutor(id, nombre, plan_id) values('857', 'David', 5);
+insert into tutor(id, nombre) values('85735135', 'Marcos');
+
+
+insert into actividad(obligatoria, nombre, descripcion) values(false, 'Futbol', '');
+insert into actividad(obligatoria, nombre, descripcion) values(true, 'Informática', '');
+insert into actividad(obligatoria, nombre, descripcion) values(false, 'Pin Pong', '');
+insert into actividad(obligatoria, nombre, descripcion) values(false, 'Hockey', '');
+insert into actividad(obligatoria, nombre, descripcion) values(false, 'Pinga', '');
+insert into actividad(obligatoria, nombre, descripcion) values(false, 'Capgemini', '');
+
+insert into enmarca(actividad_id, plan_id, fecha) values(1, 1, '14/09/2024');
+insert into enmarca(actividad_id, plan_id, fecha) values(2, 2, '14/09/2024');
+insert into enmarca(actividad_id, plan_id, fecha) values(3, 3, '14/09/2024');
+insert into enmarca(actividad_id, plan_id, fecha) values(4, 4, '14/09/2024');
+insert into enmarca(actividad_id, plan_id, fecha) values(5, 5, '14/09/2024');
 
 

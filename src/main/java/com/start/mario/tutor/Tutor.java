@@ -4,32 +4,30 @@ import com.start.mario.plan.Plan;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "tutor")
 public class Tutor {
-	
-	@Id 
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+
+	@Id
+	private Long id;
 	
 	private String nombre;
 	
 	@OneToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name = "plan_id",referencedColumnName = "id")
-	private Plan id_plan;
+	@JoinColumn(name="plan_id", referencedColumnName = "id")
+	private Plan idPlan;
 
-	public long getId() {
+	
+	
+	
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -41,16 +39,20 @@ public class Tutor {
 		this.nombre = nombre;
 	}
 
-	public Plan getPlan() {
-		return id_plan;
+	public Plan getIdPlan() {
+		return idPlan;
 	}
 
-	public void setPlan(Plan plan) {
-		this.id_plan = plan;
+	public void setIdPlan(Plan idPlan) {
+		this.idPlan = idPlan;
 	}
 
 	@Override
 	public String toString() {
-		return nombre;
+		return "Tutor [id=" + id + ", nombre=" + nombre + ", idPlan=" + idPlan.getNombre() + "]";
 	}
+	
+	
+	
+	
 }
