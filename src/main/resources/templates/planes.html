@@ -14,8 +14,7 @@
   <body>
     <div class="container">
       <div class="row">
-        <div class="col-1"></div>
-        <div class="col-10">
+        <div class="col-8">
           <table class="table table-hover">
             <thead>
               <tr>
@@ -61,8 +60,35 @@
             </tbody>
           </table>
         </div>
-        <div class="col-1 d-flex align-items-center justify-content-center">
-          <p><a class="badge badge-primary" th:href="@{~/plan/add}">+</a></p>
+        <div class="col-4 d-flex align-items-center justify-content-center">
+          <form th:action="@{~/plan/save}" th:object="${plan}" method="post" >
+            <div class="card bg-light mb-3" style="max-width: 18rem;">
+              <div class="card-header"><input readonly type="text" th:field="*{id}" size=2/></div>
+              <div class="card-body">
+              <h5 class="card-title"><input type="text" th:field="*{nombre}" size=10/></h5>
+              <p class="card-text">
+                <ul class="list-group">
+                  <li class="list-group-item list-group-item-action list-group-item-warning list-group-item d-flex justify-content-between align-items-center">
+                  Tutor:
+                  <spam th:if="${plan.tutor!=null}" th:text="${plan.tutor?.nombre}"></spam>
+                  <select class="form" th:field="*{tutor}" th:if="${plan.tutor == null}">
+                    <option th:each="t:${tutores}" th:value="${t.id}" th:text="${t.nombre}">1</option>
+                  </select>
+            <!--En el th:text tambien  vale th:text="*{tutor.nombre}"-->          
+                </li>
+                  <li class="list-group-item list-group-item-action list-group-item-warning list-group-item d-flex justify-content-between align-items-center">
+                  Curso:
+                  <select class="form" th:field="*{idCurso}">
+                    <option value="">No Asignado</option>
+                    <option th:each="c:${cursos}" th:value="${c.id}" th:text="${c.nombre}">1</option>
+                  </select>
+                </li>
+                </ul>
+              </p>
+              </div>
+            </div>	
+            <p><input type="submit" class="btn btn-primary" value="enviar"/></p>
+            </form>
         </div>
       </div>
     </div>
