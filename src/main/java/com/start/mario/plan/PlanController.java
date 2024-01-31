@@ -36,8 +36,12 @@ public class PlanController {
 		model.addObject("tutores",tutorDao.getTutoresNoEnlazados());
 		model.addObject("cursos" , cursoDao.findAll());
 		model.addObject("plan",new Plan());
-		
+
 		return model;
+	}
+	@GetMapping("/plan/nuevo/{id}")
+	public ModelAndView getPlanes(@PathVariable long id) {
+		
 	}
 	@GetMapping("/plan/{id}")
 	public ModelAndView getPlan(@PathVariable long id) {
