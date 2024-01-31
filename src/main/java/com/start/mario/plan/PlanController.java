@@ -42,13 +42,13 @@ public class PlanController {
 	}
 
 	@GetMapping("/plan/nuevo/{id}")
-	public ModelAndView getPlanes(@ModelAttribute Plan plan) {
+	public ModelAndView getPlanes(@PathVariable long id) {
 
 		ModelAndView model = new ModelAndView();
-		
+		Plan plan = planDao.findById(id).get();
 		
 		List<Plan> planes = (List<Plan>) planDao.findAll();
-		
+
 		model.addObject("plan", new Plan());
 		model.addObject("cursos", cursoDao.findAll());
 		model.addObject("tutores", tutorDao.getTutoresNoEnlazados());
