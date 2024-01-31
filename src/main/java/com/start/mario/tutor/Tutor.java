@@ -51,8 +51,4 @@ public class Tutor {
 	public String toString() {
 		return "Tutor [id=" + id + ", nombre=" + nombre + ", idPlan=" + idPlan.getNombre() + "]";
 	}
-	
-	
-	
-	
 }

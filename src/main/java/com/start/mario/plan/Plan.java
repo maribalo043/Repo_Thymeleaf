@@ -82,12 +82,8 @@ public class Plan {
 
 	@Override
 	public String toString() {
-		// Depending on your requirements, you can adjust the logic here
-		if (tutor != null) {
-			return "Plan [id=" + id + ", nombre=" + nombre + ", idCurso=" + idCurso + " tutor=" + tutor + "]";
-		} else {
-			return "Plan [id=" + id + ", nombre=" + nombre + ", idCurso=" + idCurso + "]";
-		}
+			return "Plan [id=" + id + ", nombre=" + nombre + "]";
+
 	}
 
 }

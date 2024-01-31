@@ -44,9 +44,10 @@ public class PlanController {
 	@GetMapping("/plan/nuevo/{id}")
 	public ModelAndView getPlanes(@PathVariable long id) {
 
+		
 		ModelAndView model = new ModelAndView();
 		Plan plan = planDao.findById(id).get();
-		
+
 		List<Plan> planes = (List<Plan>) planDao.findAll();
 
 		model.addObject("plan", new Plan());
@@ -103,9 +104,11 @@ public class PlanController {
 	
 	@PostMapping("/plan/save")
 	public ModelAndView savePlan(@ModelAttribute Plan plan) {
-
 		ModelAndView model = new ModelAndView();
 		Tutor tutor = plan.getTutor();
+		System.out.println("antes");
+		System.out.println(plan.getTutor());
+		System.out.println("despues");
 		if (tutor != null) {
 			tutor.setIdPlan(plan);
 			tutorDao.save(tutor);

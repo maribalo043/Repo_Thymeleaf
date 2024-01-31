@@ -36,15 +36,15 @@ public class Curso {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	@Override
-	public String toString() {
-		return nombre;
-	}
+	
 	public List<Plan> getPlanes() {
 		return planes;
 	}
 	public void setPlanes(List<Plan> planes) {
 		this.planes = planes;
 	}
-	
+	@Override
+	public String toString() {
+		return nombre;
+	}
 }
