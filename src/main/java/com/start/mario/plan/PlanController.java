@@ -39,10 +39,12 @@ public class PlanController {
 
 		return model;
 	}
-	@GetMapping("/plan/nuevo/{id}")
+
+	/*@GetMapping("/plan/nuevo/{id}")
 	public ModelAndView getPlanes(@PathVariable long id) {
 		
-	}
+	}*/
+	
 	@GetMapping("/plan/{id}")
 	public ModelAndView getPlan(@PathVariable long id) {
 		Plan plan = planDao.findById(id).get();
