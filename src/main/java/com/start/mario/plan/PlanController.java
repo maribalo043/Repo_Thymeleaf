@@ -1,5 +1,6 @@
 package com.start.mario.plan;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional; 
 
@@ -40,10 +41,23 @@ public class PlanController {
 		return model;
 	}
 
-	/*@GetMapping("/plan/nuevo/{id}")
-	public ModelAndView getPlanes(@PathVariable long id) {
+	@GetMapping("/plan/nuevo/{id}")
+	public ModelAndView getPlanes(@PathVariable long id, @ModelAttribute Plan plan) {
+
+		ModelAndView model = new ModelAndView();
 		
-	}*/
+		
+		List<Plan> planes = (List<Plan>) planDao.findAll();
+		
+		model.addObject("plan", new Plan());
+		model.addObject("cursos", cursoDao.findAll());
+		model.addObject("tutores", tutorDao.getTutoresNoEnlazados());
+		model.addObject("planes", planes);
+		model.addObject("planNuevo", plan);
+		
+		model.setViewName("planes");
+		return model;
+	}
 	
 	@GetMapping("/plan/{id}")
 	public ModelAndView getPlan(@PathVariable long id) {
@@ -96,7 +110,7 @@ public class PlanController {
 			tutor.setIdPlan(plan);
 			tutorDao.save(tutor);
 		}
-		model.setViewName("redirect:/plan");
+		model.setViewName("redirect:/plan/nuevo/"+plan.getId());
 		return model;
 	}
 	
