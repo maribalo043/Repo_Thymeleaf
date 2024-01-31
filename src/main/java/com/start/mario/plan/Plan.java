@@ -32,7 +32,7 @@ public class Plan {
 	@JsonBackReference
 	private Curso idCurso;
 
-	@OneToOne(mappedBy = "idPlan", cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "idPlan")
 	private Tutor tutor;
 	
 	

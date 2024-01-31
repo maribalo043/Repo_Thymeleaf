@@ -106,12 +106,12 @@ public class PlanController {
 	public ModelAndView savePlan(@ModelAttribute Plan plan) {
 		ModelAndView model = new ModelAndView();
 		Tutor tutor = plan.getTutor();
-		System.out.println("antes");
-		System.out.println(plan.getTutor());
-		System.out.println("despues");
 		if (tutor != null) {
 			tutor.setIdPlan(plan);
 			tutorDao.save(tutor);
+		}else{
+			plan.setTutor(null);
+			planDao.save(plan);
 		}
 		model.setViewName("redirect:/plan/nuevo/"+plan.getId());
 		return model;

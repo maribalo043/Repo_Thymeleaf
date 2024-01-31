@@ -16,7 +16,7 @@ public class Tutor {
 	
 	private String nombre;
 	
-	@OneToOne(cascade=CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="plan_id", referencedColumnName = "id")
 	private Plan idPlan;
 
