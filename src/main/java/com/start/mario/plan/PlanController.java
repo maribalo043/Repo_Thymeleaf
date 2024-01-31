@@ -42,7 +42,7 @@ public class PlanController {
 	}
 
 	@GetMapping("/plan/nuevo/{id}")
-	public ModelAndView getPlanes(@PathVariable long id, @ModelAttribute Plan plan) {
+	public ModelAndView getPlanes(@ModelAttribute Plan plan) {
 
 		ModelAndView model = new ModelAndView();
 		

@@ -70,7 +70,8 @@
               <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Cerca"></button>
             </div>
             <div class="toast-body"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
-              <p th:text="${planNuevo.nombre}">Jpña</p>
+              <p th:text="${planNuevo.tutor?.nombre}"></p>
+              <p th:text="${planNuevo.nombre}">nombre</p>
               <p th:text="${planNuevo.id}"></p>
             </font></font></div>
           </div>
