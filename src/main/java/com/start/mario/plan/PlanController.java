@@ -1,6 +1,5 @@
 package com.start.mario.plan;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional; 
 
@@ -27,6 +26,11 @@ public class PlanController {
 	@Autowired
 	CursoDAO cursoDao;
 	
+	/**
+	 * Metodo para que se pinte por pantalla todos los planes 
+	 * Para ello es necesario pasarle un array con todos los planes, para que los pinte en la vista, adeas hay que pasarle un array con todos los tutores libres y los cursos debido a que esta el formulario a la derecha de la pagina y necesita esos objetos y un plan vacio el cual servira de "molde" para los siguientes planes guardados.
+	 * @return Vista con todos los planes
+	 */
 	@GetMapping("/plan")
 	public ModelAndView getPlanes() {
 		ModelAndView model = new ModelAndView();
@@ -40,7 +44,14 @@ public class PlanController {
 
 		return model;
 	}
-
+	/**Metodo similar al anterior el cual nos sirve para poder sacar un
+	 * pop-up con los datos del nuevo plan que justo se ha añadidos, se le 
+	 * pasa lo mismo que al anterior metodo devido a que es lo mismo 
+	 * añadiendo el *pop-up
+	 * 
+	 * @param id sirve para identificar el plan que hay que pintar en el pop-up
+	 * @return Vista con todos los planes y el pop-up
+	 */
 	@GetMapping("/plan/nuevo/{id}")
 	public ModelAndView getPlanes(@PathVariable long id) {
 
@@ -59,6 +70,12 @@ public class PlanController {
 		return model;
 	}
 	
+	/**
+	 * Metodo utilizado para coger un plan en concreto y ver toda su información en una página apartada de todos los planes.
+	 * 
+	 * @param id Para saber que plan hay que coger.
+	 * @return se devulve la vista con la información de el plan en cuestion
+	 */
 	@GetMapping("/plan/{id}")
 	public ModelAndView getPlan(@PathVariable long id) {
 		Plan plan = planDao.findById(id).get();
@@ -67,6 +84,20 @@ public class PlanController {
 		model.addObject("plan",plan);
 		return model;
 	}
+
+	/**
+	 * Metodo para eliminar planes, tiene en cuenta primero que este 
+	 * presente el plan en cuestion dentro de la BBDD (primer if), 
+	 * el siguiente(segundo if) se utiliza para poder identificar
+	 * si el curso es null, si es null, no sucede nada, ya que la relacion 
+	 * permite su eliminacion, pero si no es null, se mira si ese plan
+	 * existe, para evitar errores, y ya se desvincula poniendo null
+	 * tanto en el plan como en el curso.
+	 * Luego se elimina el plan y se devulve la vista de todos los planes para asegurarnos de que se ha eliminado correctamente.
+	 * 
+	 * @param id
+	 * @return
+	 */
 	@GetMapping("/plan/del/{id}")
 	public ModelAndView deletePlan(@PathVariable long id) {
 
@@ -89,6 +120,15 @@ public class PlanController {
 		}
 		return model;
 	}
+
+	/**
+	 * Metodo utilizado para añadir un plan, se le pasa todos los cursos 
+	 * y todos los tutores, para que en su creacion ya se puedan enlazar si
+	 * el usuario quiere. Y redirige al usuario al planForm para que elija
+	 * la info.
+	 * 
+	 * @return Devulve la vista del formulario para que el usuario cree el plan
+	 */
 	@GetMapping("/plan/add")
 	public ModelAndView addPlan() {
 		
@@ -100,7 +140,17 @@ public class PlanController {
 		
 		return model;
 	}
-	
+	/**
+	 * Metodo Utilizado tanto por el add como por el edit, para guardar
+	 * los planes con sus relaciones.
+	 * El if y el else es debido a que sin ellos cuando añadias un nuevo 
+	 * plan daba una excepcion de tutor null entonces comprobando que 
+	 * no es null y volviendo a settearlo, para su posteior guardado soluciona ese problema.
+	 * 
+	 * @param plan Es el plan generado por el add o el edit para guardar en la BBDD.
+	 * @return Devuelve la vista general de los planes para comprobar que se
+	 * han guardado correctamente.
+	 */
 	@PostMapping("/plan/save")
 	public ModelAndView savePlan(@ModelAttribute Plan plan) {
 		ModelAndView model = new ModelAndView();
@@ -116,7 +166,16 @@ public class PlanController {
 		return model;
 	}
 	
-
+	/**
+	 * Método usado para editar los planes, recibe el id del plan para
+	 * poder proceder a ir a editarlo, pero por supuesto para evitar errores
+	 * hay un if del optional para comprobar que esta presente el plan
+	 * en cuestión, si no existe te devulve a la vista de ese plan.
+	 * 
+	 * @param id Es el campo que necesitamos para buscar al plan en la base
+	 * de datos  
+	 * @return 1.Devuelve la vista de el formulario para realizar los cambios
+	 */
 	@GetMapping("/plan/edit/{id}")
 	public ModelAndView editPlan(@PathVariable long id) {
 		
@@ -130,6 +189,17 @@ public class PlanController {
 		}else model.setViewName("redirect:/plan");
 		return model;
 	}
+	/**
+	 * Metodo utilizado desviscular los tutores de los planes, por si
+	 * necesitas vincularlo con otro plan. Para comenzar, como siempre
+	 * comprobamos que el plan exista, el tutor no hace falta por que al
+	 * estar vinculado se supone que existe. Dentro del if, se settea todo a
+	 * null y listo.
+	 * 
+	 * @param idPlan Variable para averiguar el plan que quieres 
+	 * desvincular, a partir del id del plan obtienes todo.
+	 * @return devulve la vista de todos los planes para ver los cambios
+	 */
 	@GetMapping("/plan/tutor/del/{idPlan}")
 	public ModelAndView deleteTutorFromPlan(@PathVariable long idPlan) {
 		
