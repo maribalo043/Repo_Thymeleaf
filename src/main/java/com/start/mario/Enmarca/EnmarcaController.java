@@ -37,8 +37,7 @@ public class EnmarcaController {
 		
 		ModelAndView model = new ModelAndView();
 		model.setViewName("enmarcaciones");
-		List<Enmarca> listaEnmarca = (List<Enmarca>)enmarcaDAO.findAll();
-		model.addObject("listaEnmarca", listaEnmarca);
+		model.addObject("listaEnmarca", enmarcaDAO.findAll());
 		
 		return model;
 	}
@@ -94,7 +93,7 @@ public class EnmarcaController {
 	public ModelAndView savePlan(@ModelAttribute Enmarca enmarca) {
 
 	    ModelAndView model = new ModelAndView();
-	    model.setViewName("redirect:/enmarca");
+	    model.setViewName("redirect:/plan/"+enmarca.getId());
 
 	    boolean ExisteUnion = enmarcaDAO.existsByPlanAndActividad(
 	            enmarca.getPlan().getNombre(),

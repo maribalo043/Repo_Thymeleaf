@@ -2,6 +2,8 @@ package com.start.mario.plan;
 
 import java.util.Set;
 
+import org.antlr.v4.runtime.misc.NotNull;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.start.mario.curso.Curso;
 import com.start.mario.enmarca.Enmarca;
@@ -17,6 +19,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class Plan {
@@ -25,6 +28,9 @@ public class Plan {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
+	@SuppressWarnings("deprecation")
+	@NotNull
+	@Size(min=4,max=30)
 	private String nombre;
 
 	@JoinColumn(name = "FK_CURSO")

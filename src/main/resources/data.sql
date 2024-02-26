@@ -35,4 +35,6 @@ insert into enmarca(actividad_id, plan_id, fecha) values(3, 3, '14/09/2024');
 insert into enmarca(actividad_id, plan_id, fecha) values(4, 4, '14/09/2024');
 insert into enmarca(actividad_id, plan_id, fecha) values(5, 5, '14/09/2024');
 
-
+/*Contraseña de mario es mario*/
+insert into Usuario(usuario, password) values('mario','$2a$12$vP0sUT1JJ2oGxerOljcM8ePhpEJTdI/7hDHtIA.PAhq3gTI88b2IW');
+insert into Usuario(usuario, password) values('ana','$2a$12$c55KGSYhrcY7cpY8ILKHTOlD8efsq0oVf0oC7T2VWOR8YefBsHhru');

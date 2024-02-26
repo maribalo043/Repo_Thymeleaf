@@ -27,7 +27,62 @@
         	<span><a class="btn btn-success" th:href="@{~/plan/edit/{id}(id=${plan.id})}">Editar</a></span>
         </div>
     </div>
-
+    <div class="row align-items-center">
+      <div class="col col-md-1"></div>
+      <div class="col col-md-7">
+        <table class="table table-hover table-striped">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Fecha</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="e:${plan.enmarcados}">
+              <th scope="row" th:text="${e.actividad.id}">1</th>
+              <td th:text="${e.actividad.nombre}">Comidas</td>
+              <td th:text="${e.fecha}">Hoy</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col col-md-4">
+        <form th:if="${not #lists.isEmpty(actividades)}" th:action="@{~/enmarca/save}" th:object="${enmarca}" method="post">
+          <div class="card bg-light mb-3" style="max-width: 18rem;">
+            <div class="card-header"></div>
+            <div class="card-body">
+            <p class="card-text">
+              <ul class="list-group">
+                <li class="list-group-item list-group-item-action list-group-item-warning list-group-item d-flex justify-content-between align-items-center">
+                Plan:            
+                <select class="form-control" th:field="*{plan}"> 
+                  <option th:value="${plan.id}" th:text="${plan.nombre}"></option>
+                </select>
+                </li>
+                <li class="list-group-item list-group-item-action list-group-item-warning list-group-item d-flex justify-content-between align-items-center">
+                Actividad: 
+                <select class="form-control" th:field="*{actividad}"> 
+                  <option th:each="a:${actividades}" th:value="${a.id}" th:text="${a.nombre}"></option>
+                </select>
+                </li>
+                <li class="list-group-item list-group-item-action list-group-item-warning list-group-item d-flex justify-content-between align-items-center">
+                    Fecha: 
+                    <input type="text" th:field="*{fecha}">
+                    </li>
+              </ul>
+            </p>
+            </div>
+          </div>		
+        
+          </div> 
+          <div class="col col-md-5 d-flex justify-content-between align-items-left">
+          <a th:href="@{~/enmarca}" class="btn btn-primary btn-sm">Volver</a>
+          </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+      </div>
+    </div>
     <script
       src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
       integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"

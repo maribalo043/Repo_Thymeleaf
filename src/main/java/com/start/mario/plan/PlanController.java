@@ -5,16 +5,21 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.start.mario.actividad.ActividadDAO;
 import com.start.mario.curso.Curso;
 import com.start.mario.curso.CursoDAO;
+import com.start.mario.enmarca.Enmarca;
 import com.start.mario.tutor.Tutor;
 import com.start.mario.tutor.TutorDAO;
+
+import jakarta.validation.Valid;
 
 @Controller
 public class PlanController {
@@ -25,6 +30,8 @@ public class PlanController {
 	TutorDAO tutorDao;
 	@Autowired
 	CursoDAO cursoDao;
+	@Autowired
+	ActividadDAO actividadDao;
 	
 	/**
 	 * Metodo para que se pinte por pantalla todos los planes 
@@ -82,6 +89,9 @@ public class PlanController {
 		ModelAndView model = new ModelAndView();
 		model.setViewName("plan");
 		model.addObject("plan",plan);
+		model.addObject("actividades", actividadDao.findNotLinkPlan(plan.getId()));
+		model.addObject("enmarca", new Enmarca());
+
 		return model;
 	}
 
@@ -151,21 +161,34 @@ public class PlanController {
 	 * @return Devuelve la vista general de los planes para comprobar que se
 	 * han guardado correctamente.
 	 */
+		
+		
 	@PostMapping("/plan/save")
-	public ModelAndView savePlan(@ModelAttribute Plan plan) {
+	public ModelAndView savePlan(@ModelAttribute @Valid Plan plan, BindingResult bindingResult) {
+
 		ModelAndView model = new ModelAndView();
+		if (bindingResult.hasErrors()){
+			model.addObject("tutores",tutorDao.getTutoresNoEnlazados());
+			model.addObject("cursos",cursoDao.findAll());
+			model.setViewName("planForm");
+			return model;
+		}
 		Tutor tutor = plan.getTutor();
 		if (tutor != null) {
 			tutor.setIdPlan(plan);
 			tutorDao.save(tutor);
-		}else{
+		}
+		else {
 			plan.setTutor(null);
 			planDao.save(plan);
 		}
-		model.setViewName("redirect:/plan/nuevo/"+plan.getId());
+
+		model.addObject("planNuevo", plan);
+		model.setViewName("redirect:/plan/nuevo/" + plan.getId());
+		
+
 		return model;
 	}
-	
 	/**
 	 * Método usado para editar los planes, recibe el id del plan para
 	 * poder proceder a ir a editarlo, pero por supuesto para evitar errores
